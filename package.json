@@ -1,0 +1,23 @@
+{
+  "name": "commondev-auth",
+  "version": "1.0.0",
+  "description": "Authorization for your app via commondev open service",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nikitakashin/commondev-auth.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nikitakashin/commondev-auth/issues"
+  },
+  "homepage": "https://github.com/nikitakashin/commondev-auth#readme",
+  "dependencies": {
+    "axios": "^0.27.2"
+  }
+}
