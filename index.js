@@ -1,7 +1,7 @@
 const axios = require('axios').default;
 
-// const apiHost = 'https://commondev.ru/v1.0/';
-const apiHost = 'http://localhost:4000/v1.0/';
+// const apiHost = 'https://commondev.ru/';
+const apiHost = 'http://localhost:4000/';
 
 class ResultObject {
   constructor(err, data) {
@@ -19,37 +19,48 @@ class ResultObject {
 }
 
 export const v1 = {
-  getUserByToken: async (TOKEN) => {
+  apiVersion: 'v1.0',
+
+  getUserByToken: async (payload) => {
+    const requestUrl = `${apiHost}/${this.apiVersion}/profile/`;
+
     try {
-      const response = await axios.get(apiHost + 'profile/', {
+      const response = await axios.get(requestUrl, {
         headers: {
-          Authorization: 'Bearer ' + TOKEN
+          Authorization: 'Bearer ' + payload.token
         }
       });
+
       return new ResultObject({}, response).get();
     } catch (err) {
       return new ResultObject(err, {}).get();
     }
   },
 
-  login: async (phone) => {
+  login: async (payload) => {
+    const requestUrl = `${apiHost}/${this.apiVersion}/users/login`;
+
     try {
-      const response = await axios.post(apiHost + 'users/login', {
-        phone: phone
+      const response = await axios.post(requestUrl, {
+        phone: payload.phone
       });
+
       return new ResultObject({}, response.data.data).get();
     } catch (err) {
       return new ResultObject(err, {}).get();
     }
   },
 
-  register: async (regData) => {
+  register: async (payload) => {
+    const requestUrl = `${apiHost}/${this.apiVersion}/users/register`;
+
     try {
-      const response = await axios.post(apiHost + 'users/register', {
-        phone: regData.phone,
-        firstname: regData.firstname,
-        lastname: regData.lastname
+      const response = await axios.post(requestUrl, {
+        phone: payload.phone,
+        firstname: payload.firstname,
+        lastname: payload.lastname
       });
+
       if (response.data.status === 'fail') {
         return new ResultObject(response.data.data[0], {}).get();
       } else {
@@ -60,14 +71,15 @@ export const v1 = {
     }
   },
 
-  complete: async (completeData) => {
+  complete: async (payload) => {
+    const requestUrl = `${apiHost}/${this.apiVersion}/users/complete`;
+
     try {
-      const phone = completeData.phone;
-      const code = completeData.code;
-      const response = await axios.post(apiHost + "users/complete'", {
-        code: code,
-        phone: phone
+      const response = await axios.post(requestUrl, {
+        code: payload.code,
+        phone: payload.phone
       });
+
       if (response.status === 'success') {
         return new ResultObject({}, response?.data?.token).get();
       } else {
@@ -78,3 +90,7 @@ export const v1 = {
     }
   }
 };
+
+// export const v2 = {
+//   apiVersion: 'v2.0',
+// }
