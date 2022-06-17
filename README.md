@@ -39,3 +39,11 @@ const getUserDataRequest = await v1.getUserByToken({
   token: 'TOKEN',
 });
 ```
+
+### All methods returns unified object
+
+{
+  status: Boolean,
+  err: Object,
+  data: Object
+}
