@@ -1,7 +1,7 @@
-const axios = require('axios').default;
+const axios = require("axios").default;
 
-// const apiHost = 'https://commondev.ru/';
-const apiHost = 'http://localhost:4000/';
+const apiHost = "https://commondev.ru/";
+// const apiHost = 'http://localhost:4000/';
 
 class ResultObject {
   constructor(err, data) {
@@ -13,13 +13,13 @@ class ResultObject {
     return {
       status: !!Object.entries(this.err).length,
       err: this.err,
-      data: this.data
+      data: this.data,
     };
   }
 }
 
-export const v1 = {
-  apiVersion: 'v1.0',
+module.exports.v1 = {
+  apiVersion: "v1.0",
 
   getUserByToken: async (payload) => {
     const requestUrl = `${apiHost}/${this.apiVersion}/profile/`;
@@ -27,8 +27,8 @@ export const v1 = {
     try {
       const response = await axios.get(requestUrl, {
         headers: {
-          Authorization: 'Bearer ' + payload.token
-        }
+          Authorization: "Bearer " + payload.token,
+        },
       });
 
       return new ResultObject({}, response).get();
@@ -42,7 +42,7 @@ export const v1 = {
 
     try {
       const response = await axios.post(requestUrl, {
-        phone: payload.phone
+        phone: payload.phone,
       });
 
       return new ResultObject({}, response.data.data).get();
@@ -58,10 +58,10 @@ export const v1 = {
       const response = await axios.post(requestUrl, {
         phone: payload.phone,
         firstname: payload.firstname,
-        lastname: payload.lastname
+        lastname: payload.lastname,
       });
 
-      if (response.data.status === 'fail') {
+      if (response.data.status === "fail") {
         return new ResultObject(response.data.data[0], {}).get();
       } else {
         return new ResultObject({}, response.data.data).get();
@@ -77,10 +77,10 @@ export const v1 = {
     try {
       const response = await axios.post(requestUrl, {
         code: payload.code,
-        phone: payload.phone
+        phone: payload.phone,
       });
 
-      if (response.status === 'success') {
+      if (response.status === "success") {
         return new ResultObject({}, response?.data?.token).get();
       } else {
         return new ResultObject(response, {}).get();
@@ -88,7 +88,7 @@ export const v1 = {
     } catch (err) {
       return new ResultObject(err, {}).get();
     }
-  }
+  },
 };
 
 // export const v2 = {
