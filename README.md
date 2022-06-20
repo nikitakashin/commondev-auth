@@ -1,4 +1,5 @@
 # commondev-auth
+<<<<<<< HEAD
 
 ## Authorization system via commondev api for everyone
 
@@ -8,6 +9,15 @@
 npm i commondev-auth
 ```
 
+=======
+## Authorization system via commondev api for everyone
+
+
+### Installation
+```sh
+npm i commondev-auth
+```
+>>>>>>> 0c03e85f8e9c62544552b9f94c9dff7018e603ec
 ### Usage
 
 ```sh
@@ -45,7 +55,13 @@ const getUserDataRequest = await v1.getUserByToken({
 ### All methods returns unified object
 
 {
+<<<<<<< HEAD
 status: Boolean,
 err: Object,
 data: Object
+=======
+  status: Boolean,
+  err: Object,
+  data: Object
+>>>>>>> 0c03e85f8e9c62544552b9f94c9dff7018e603ec
 }
