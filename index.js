@@ -1,7 +1,11 @@
 const axios = require("axios").default;
 
 const apiHost = "https://commondev.ru/";
-// const apiHost = 'http://localhost:4000/';
+// const apiHost = "http://localhost:4000/";
+
+// headers: {
+//   Authorization: "Bearer " + payload.token,
+// },
 
 class ResultObject {
   constructor(err, data) {
@@ -18,17 +22,15 @@ class ResultObject {
   }
 }
 
-module.exports.v1 = {
-  apiVersion: "v1.0",
+module.exports.v2 = {
+  apiVersion: "v2.0",
 
   getUserByToken: async (payload) => {
-    const requestUrl = `${apiHost}/${this.apiVersion}/profile/`;
+    const requestUrl = `${apiHost}/api/${this.apiVersion}/User.read/`;
 
     try {
-      const response = await axios.get(requestUrl, {
-        headers: {
-          Authorization: "Bearer " + payload.token,
-        },
+      const response = await axios.post(requestUrl, {
+        token: payload.token,
       });
 
       return new ResultObject({}, response).get();
@@ -38,7 +40,7 @@ module.exports.v1 = {
   },
 
   login: async (payload) => {
-    const requestUrl = `${apiHost}/${this.apiVersion}/users/login`;
+    const requestUrl = `${apiHost}/api/${this.apiVersion}/User.login`;
 
     try {
       const response = await axios.post(requestUrl, {
@@ -52,7 +54,7 @@ module.exports.v1 = {
   },
 
   register: async (payload) => {
-    const requestUrl = `${apiHost}/${this.apiVersion}/users/register`;
+    const requestUrl = `${apiHost}/api/${this.apiVersion}/User.register`;
 
     try {
       const response = await axios.post(requestUrl, {
@@ -72,7 +74,7 @@ module.exports.v1 = {
   },
 
   complete: async (payload) => {
-    const requestUrl = `${apiHost}/${this.apiVersion}/users/complete`;
+    const requestUrl = `${apiHost}/api/${this.apiVersion}/User.complete`;
 
     try {
       const response = await axios.post(requestUrl, {
@@ -90,7 +92,3 @@ module.exports.v1 = {
     }
   },
 };
-
-// export const v2 = {
-//   apiVersion: 'v2.0',
-// }
