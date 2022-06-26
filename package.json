@@ -1,6 +1,6 @@
 {
   "name": "commondev-auth",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Authorization for your app via commondev open service",
   "published": "06.2022",
   "main": "index.js",
