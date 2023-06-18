@@ -10,46 +10,116 @@ npm i commondev-auth
 
 ### Usage
 
-v1 depricated
+```sh
+const { CommondevAuth } = require('commondev-auth');
+// or
+import { CommondevAuth } from 'commondev-auth';
+```
+
+#### CommondevAuth.register
+
+This method takes as input email.
+Sends 4-digit code to the specified email.
+This code expires in 5 minutes, to resend code use CommondevAuth.resendCode.
 
 ```sh
-const { v2 } = require('commondev-auth');
-// or
-import { v2 } from 'commondev-auth';
-
-const registerRequest = await v2.register({
-  phone: {
-    phone: '9530789652',
-    countryCode: '7'
-  },
-  firstname: 'firstname',
-  lastname: 'lastname'
+const registerRequest = await CommondevAuth.register({
+  email: 'example@gmail.com'
 });
+```
 
-const loginRequest = await v2.login({
-  phone: {
-    phone: '9530789652',
-    countryCode: '7'
-  }
+This method returns next step of authorization. For example:
+
+```sh
+{
+  error: null,
+  data: { next: "complete" },
+}
+```
+
+#### CommondevAuth.complete
+
+This method takes as input email and code.
+
+```sh
+const completeRequest = await CommondevAuth.complete({
+  email: 'example@gmail.com'
+  code: 4232
 });
+```
 
-const completeRequest = await v2.complete({
-  phone: {
-    phone: '9530789652',
-    countryCode: '7'
-  },
-  code: '4232'
+This method returns authorization token. For example:
+
+```sh
+{
+  error: null,
+  data: { token: "EXAMPLE_TOKEN" },
+}
+```
+
+#### CommondevAuth.login
+
+This method takes as input email.
+Sends 4-digit code to the specified email.
+This code expires in 5 minutes, to resend code use CommondevAuth.resendCode.
+
+```sh
+const loginRequest = await CommondevAuth.login({
+  email: 'example@gmail.com'
 });
+```
 
-const getUserDataRequest = await v2.getUserByToken({
+This method returns next step of authorization. For example:
+
+```sh
+{
+  error: null,
+  data: { next: "complete" },
+}
+```
+
+#### CommondevAuth.getUserByToken
+
+This method takes as input jwt token that you can get via CommondevAuth.complete.
+
+```sh
+const getUserDataRequest = await CommondevAuth.getUserByToken({
   token: 'TOKEN',
 });
 ```
 
-### All methods returns unified object
+This method returns user data. For example:
 
+```sh
 {
-status: Boolean,
-err: Object,
-data: Object
+    "error": null,
+    "data": {
+        "user": {
+            "created": "2023-06-18T14:46:55.307Z",
+            "email": "example@gmail.com",
+            "token": "EXAMPLE_TOKEN"
+        }
+    }
 }
+```
+
+#### CommondevAuth.resendCode
+
+This method takes as input email.
+Sends 4-digit code to the specified email.
+This code expires in 5 minutes, to resend code use CommondevAuth.resendCode.
+
+```sh
+const resendCodeRequest = await CommondevAuth.resendCode({
+  email: 'example@gmail.com'
+});
+```
+
+This method returns next step of authorization. For example:
+
+```sh
+{
+  error: null,
+  data: { next: "complete" },
+}
+```
